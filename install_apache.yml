@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+    - name: install apache2
+      dnf:
+        name: httpd
+        state: latest
+    - name: start apache service
+      service:
+        name: httpd
+        state: started      
