@@ -3,11 +3,16 @@
 - hosts: all
   become: true
   tasks:
-    - name: install apache2
-      dnf:
-        name: httpd
+    - name: install apache and php
+      package:
+        name:
+          - "{{ apache_package }}"
+          - "{{ php_package }}"
         state: latest
+        update_cache: yes
+     
     - name: start apache service
       service:
         name: httpd
-        state: started      
+        state: started 
+      when: ansible_distribution in ["CentOS", "AlmaLinux"]     
